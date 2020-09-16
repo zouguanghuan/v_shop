@@ -55,7 +55,6 @@ export default {
         if (!valid) return
         // 从返回数据中解构出data对象，并重命名为res，需要await 和 async进行处理
         const { data: res } = await this.$http.post('login', this.loginForm)
-        console.log(res)
         // 通过网络状态吗判断是否登陆成功
         if (res.meta.status !== 200) return this.$message.error('登陆失败')// return语句执行以后，函数后面的代码不执行
         this.$message.success('登陆成功')
