@@ -23,9 +23,16 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox
+  MessageBox,
+  Tag,
+  Tree,
+  Select,
+  Option
 } from 'element-ui'
 
+Vue.use(Option)
+Vue.use(Select)
+Vue.use(Tag)
 Vue.prototype.$confirm = MessageBox
 Vue.use(Dialog)
 Vue.use(Pagination)
@@ -49,5 +56,6 @@ Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Tree)
 // 将message配置到Vue
 Vue.prototype.$message = Message

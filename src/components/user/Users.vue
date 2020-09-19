@@ -78,9 +78,21 @@
               <el-button type="primary" @click="deleteUser()">确 定</el-button>
             </span>
           </el-dialog>
+          <!-- 分配觉得角色对话框 -->
+          <el-dialog
+            title="分配角色"
+            :visible.sync="setRoleialogVisible"
+            width="40%"
+          >
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="setRoleialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+          </el-dialog>
         </el-col>
       </el-row>
-      <!-- 用户列表区域 -->
+      <!-- 显示用户列表区域 -->
       <el-table :data="userlist" border stripe>
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="姓名" prop="username"></el-table-column>
@@ -117,7 +129,7 @@
               ></el-button>
               <!-- 分配角色按钮 -->
               <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-                <el-button size="mini" type="warning" icon="el-icon-setting"></el-button>
+                <el-button @click="setRoleialogVisible=true" size="mini" type="warning" icon="el-icon-setting"></el-button>
               </el-tooltip>
             </div>
           </template>
@@ -260,7 +272,8 @@ export default {
       },
       // 弹出删除对话框
       deleteDialogVisible: false,
-      deleteUserId: 0
+      deleteUserId: 0,
+      setRoleialogVisible: false
     }
   },
   created() {
@@ -359,7 +372,8 @@ export default {
       this.$message.success(res.meta.msg)
       this.getUserList()
     }
-  }
+  },
+
 }
 </script>
 

@@ -18,3 +18,7 @@ html, body, #app {
 .el-pagination {
   margin-top: 25px;
 }
+.role-center {
+  display: flex;
+  align-items: center;
+}
