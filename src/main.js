@@ -5,6 +5,7 @@ import './plugins/element.js'
 import './assets/fonts/iconfont.css'
 import './assets/css/global.css'
 import axios from 'axios'
+// import TreeTable from 'vue-table-tree-grid's
 // 将axios挂载到Vue
 Vue.prototype.$http = axios
 // 配置基本默认地址，后面请求地址时，自动拼接这一部分
@@ -14,8 +15,9 @@ axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config
 })
-// axios的配置在挂载之前配置好
+// axios的配置在挂载之前配置好,开发模式
 Vue.config.productionTip = false
+// Vue.component('tree-table', TreeTable)
 
 new Vue({
   router,
