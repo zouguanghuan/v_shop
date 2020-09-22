@@ -22,3 +22,6 @@ html, body, #app {
   display: flex;
   align-items: center;
 }
+.el-table-column {
+  text-align: center!important;
+}

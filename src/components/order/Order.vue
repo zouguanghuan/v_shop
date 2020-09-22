@@ -11,8 +11,8 @@
       <!-- 搜索框 -->
       <el-row>
         <el-col :span=8>
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query">
+            <el-button type="primary" slot="append" icon="el-icon-search" @click="getOrderList"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -28,10 +28,10 @@
           </template>
         </el-table-column>
         <el-table-column label="是否发货" prop="is_send"></el-table-column>
-        <el-table-column label="下单时间" prop="create_time">
-          <!-- <template slot-scope="scope">
-            {{scope.row.create.time | dateFormat}}
-          </template> -->
+        <el-table-column label="下单时间" prop="create_time" style="width: 170px;">
+          <template slot-scope="scope">
+            {{ scope.row.create_time | dateFormate }}
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="150px">
           <template>
@@ -44,7 +44,7 @@
       <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="queryInfo"
+      :current-page="queryInfo.pagenum"
       :page-sizes="[5, 10, 20]"
       :page-size="queryInfo.pagesize"
       layout="total, sizes, prev, pager, next, jumper"
@@ -64,7 +64,7 @@ export default {
         pagesize: 10
       },
       orderList: [],
-      total: ''
+      total: 0
     }
   },
   created() {
@@ -73,7 +73,6 @@ export default {
   methods: {
     async getOrderList() {
       const { data: res } = await this.$http.get('orders', { params: this.queryInfo })
-      console.log(res)
       if (res.meta.status !== 200) {
         return this.$message.erro('error')
       }
