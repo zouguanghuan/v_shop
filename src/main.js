@@ -5,6 +5,7 @@ import './plugins/element.js'
 import './assets/fonts/iconfont.css'
 import './assets/css/global.css'
 import axios from 'axios'
+
 // import TreeTable from 'vue-table-tree-grid's
 // 将axios挂载到Vue
 Vue.prototype.$http = axios

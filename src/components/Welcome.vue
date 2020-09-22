@@ -1,3 +1,3 @@
 <template>
-  <h3>welcome</h3>
+  <h3>欢迎邹广欢</h3>
 </template>
