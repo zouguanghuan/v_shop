@@ -21,7 +21,7 @@ export default {
     return {
       option: {
         title: {
-          text: 'ECharts 入门示例'
+          text: '用户来源'
         },
         tooltip: {},
         legend: {
