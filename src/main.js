@@ -19,6 +19,17 @@ axios.interceptors.request.use(config => {
 // axios的配置在挂载之前配置好,开发模式
 Vue.config.productionTip = false
 // Vue.component('tree-table', TreeTable)
+// 定义全局过滤器
+Vue.filter('dateFormate', function(val) {
+  const dt = new Date(val)
+  const y = dt.getFullYear()
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  const d = (dt.getDate() + '').padStart(2, '0')
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+  return `${y}-${m}-${d}-${hh}-${mm}-${ss}`
+})
 
 new Vue({
   router,
