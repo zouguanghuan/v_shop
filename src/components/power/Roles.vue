@@ -11,9 +11,30 @@
       <!-- 添加角色路径 -->
       <el-row>
         <el-col>
-          <el-button type="primary">添加角色</el-button>
+          <el-button type="primary" @click="addDialogVisible = true">添加角色</el-button>
         </el-col>
       </el-row>
+      <!-- 添加角色对话框 -->
+      <el-dialog
+        title="添加角色"
+        :visible.sync="addDialogVisible"
+        width="50%">
+        <!-- 角色信息表单 -->
+        <el-form ref="refRole" :model="addRoleInfo" label-width="80px">
+          <el-form-item label="角色名称">
+            <el-input v-model="addRoleInfo.roleName"></el-input>
+          </el-form-item>
+          <el-form-item label="角色描述">
+            <el-input v-model="addRoleInfo.roleDesc"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="addRole">立即创建</el-button>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addDialogVisible = false">取 消</el-button>
+        </span>
+      </el-dialog>
       <!-- 角色列表区域 -->
       <el-table :data="roleslist">
         <!-- 展开列 -->
@@ -61,10 +82,9 @@
         <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
         <el-table-column label width="300px">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
-            <el-button size="mini" type="primary" icon="el-icon-delete" @click="removeRole()">删除</el-button>
+            <!-- <el-button size="mini" type="primary" icon="el-icon-edit">编辑</el-button> -->
+            <el-button type="primary" icon="el-icon-delete" @click="removeRole(scope.row.id)">删除</el-button>
             <el-button
-              size="mini"
               type="primary"
               icon="el-icon-setting"
               @click="showSetRightDialog(scope.row)"
@@ -104,7 +124,12 @@ export default {
         children: 'children'
       },
       defKeys: [],
-      roleId: ''
+      roleId: '',
+      addDialogVisible: false,
+      addRoleInfo: {
+        roleName: '',
+        roleDesc: '测着玩玩'
+      }
     }
   },
   created() {
@@ -169,6 +194,24 @@ export default {
       this.$message.success(res.meta.msg)
       this.getHalfCheckedKeys()
       this.setRightDialogVisible = false
+    },
+    async addRole() {
+      this.addDialogVisible = true
+      const { data: res } = await this.$http.post('roles', this.addRoleInfo)
+      if (res.meta.status !== 201) {
+        return this.$message.error(res.meta.msg)
+      }
+      this.$message.success('成功')
+      this.addDialogVisible = false
+      this.getRolesList()
+    },
+    async removeRole(id) {
+      const { data: res } = await this.$http.delete(`roles/${id}`)
+      if (res.meta.status !== 200) {
+        return this.$message.error('error')
+      }
+      this.$message.success('删除角色成功')
+      this.getRolesList()
     }
   }
 }
